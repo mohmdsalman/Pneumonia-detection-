@@ -17,7 +17,7 @@ The goal of this project is to develop an AI-based system that can automatically
 - **TensorFlow / Keras** – CNN Model
 - **Flask** – Web framework
 - **HTML/CSS/JavaScript** – Frontend UI
-- **Gradio/Gemini API** – Pneumonia Chatbot
+- **Gemini API** – Pneumonia Chatbot
 - **Pandas, NumPy, Matplotlib** – Data processing and visualization
 
 ---
