@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #ebcca8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            overflow-y: auto; /* Allows scrolling */
+        }
+       /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #2d2d2d;
+            width: 100%;  /* Full width */
+            position: fixed; /* Fix to top */
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 90px; /* Adjust height */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f8b400; /* Highlight on hover */
+        }
+
+
+        .container {
+            max-width: 500px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 100px auto 20px; /* Centers vertically */
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .upload-box {
+            border: 2px dashed #816c56;
+            padding: 20px;
+            cursor: pointer;
+            background: #eaf4ff;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .upload-box:hover {
+            background: #d6eaff;
+        }
+        input[type="file"] {
+            display: block; /* Ensures it's visible */
+            margin: 10px auto;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            background: #f0ba81;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #816c56;
+        }
+        #prediction {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #816c56;
+        }
+        /* Result Section */
+        .results {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            width: 1000px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .health-advice {
+            margin-top: 20px;
+            padding: 20px;
+            width: 955px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Style for normal result */
+        .health-advice.normal {
+            background: #d4edda; /* Light green */
+            color: #155724; /* Dark green */
+            border: 2px solid #c3e6cb;
+        }
+
+        /* Style for pneumonia detected */
+        .health-advice.warning {
+            background: #f8d7da; /* Light red */
+            color: #721c24; /* Dark red */
+            border: 2px solid #f5c6cb;
+        }
+
+        /* Chatbox */
+        .chatbox {
+            width: 550px;
+            height: 700px;
+            background: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            display: none;
+        }
+
+        .chatbox-header {
+            background: #c49a6c;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .chatbox-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbox-footer {
+            padding: 10px;
+            display: flex;
+            border-top: 1px solid #ddd;
+            background: #f8f8f8;
+        }
+
+        .chatbox-footer input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .chatbox-footer button {
+            background: #c49a6c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .chatbox-footer button:hover {
+            background: #b38050;
+        }
+
+        /* Floating Chat Button */
+        .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #c49a6c;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .chat-button:hover {
+            background: #b38050;
+        }
+        /* Chat Messages */
+        .message {
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 75%;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background: #c49a6c;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background: #f1f1f1;
+            align-self: flex-start;
+        }
+
+
+
+    </style>
+</head>
+<body>
+     <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Pneumonia AI</div>
+        <ul class="nav-links">
+            <li><a href="page">Home</a></li>
+            <li><a href="bot">Chatbot</a></li>
+
+        </ul>
+    </nav>
+
+
+        <!-- Chatbox -->
+        <div class="chatbox">
+            <div class="chatbox-header">Pneumonia AI Chatbot</div>
+            <div class="chatbox-body" id="chatboxBody">
+                <div class="bot-message message">Hello! How can I help you today?</div>
+            </div>
+            <div class="chatbox-footer">
+                <input type="text" id="userInput" placeholder="Ask me anything about pneumonia...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    
+        <!-- Floating Chat Button -->
+        <div class="chat-button" onclick="toggleChatbox()">💬</div>
+
+
+
+    <div class="container">
+        <h2>Upload Chest X-ray for Pneumonia Detection</h2>
+
+        <!-- Predict Button -->
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <label class="upload-box" for="xrayUpload">Click or Drag & Drop to Upload</label>
+             <input type="file" id="xrayUpload" name="file" accept="image/*" enctype="multipart/form-data" required>
+             <button type="submit">Predict</button>
+        </form>
+    </div>
+    {% if prediction %}
+    <div class="results">
+        <h3>Prediction Result:</h3>
+        <p>{{ prediction }}</p> 
+    </div>
+    {% endif %}
+
+    {% if advice %}
+    <div class="health-advice">
+        <h3>{{ advice["title"] }}</h3>
+        <p>{{ advice["message"] }}</p>
+    </div>
+    {% endif %}
+    
+
+    <script>
+            function toggleChatbox() {
+            let chatbox = document.querySelector('.chatbox');
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                chatbox.style.display = 'flex';
+            } else {
+                chatbox.style.display = 'none';
+            }
+        }
+        async function sendMessage() {
+            let inputField = document.getElementById('userInput');
+            let chatboxBody = document.getElementById('chatboxBody');
+            let userMessage = inputField.value.trim();
+
+            if (userMessage === "") {
+                alert("Please enter a question before sending.");
+                return;
+            }
+
+            inputField.value = ""; // Clear input after sending
+
+            let userDiv = document.createElement("div");
+            userDiv.classList.add("message", "user-message");
+            userDiv.innerText = userMessage;
+            chatboxBody.appendChild(userDiv);
+
+            let botDiv = document.createElement("div");
+            botDiv.classList.add("message", "bot-message");
+            botDiv.innerHTML = "Typing...";
+            chatboxBody.appendChild(botDiv);
+
+            chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto-scroll
+
+            try {
+                let response = await fetch('/chatbot', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: userMessage })
+                });
+
+                let data = await response.json();
+                botDiv.innerText = data.response; // Update bot message with actual response
+
+            } catch (error) {
+                botDiv.innerText = "⚠️ Error fetching response. Please try again.";
+            }
+
+            chatboxBody.scrollTop = chatboxBody.scrollHeight; // Auto-scroll after response
+        }
+
+        document.getElementById("userInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+

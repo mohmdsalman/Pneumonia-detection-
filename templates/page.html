@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://lagunabeachuc.com/wp-content/uploads/2024/05/hand-of-young-doctor-pointing-at-x-ray-image.jpeg') no-repeat center center/cover;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: #9c794b;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .top-bar a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #2d2d2d;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://source.unsplash.com/1600x900/?doctor,hospital') no-repeat center center/cover;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            color: #251503;
+        }
+
+        .hero .italic {
+            font-style: italic;
+            color: #c49a6c;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background: #c49a6c;
+            color: rgb(255, 255, 255);
+            padding: 12px 24px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #b38050;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: #fff;
+            padding: 60px;
+            text-align: center;
+        }
+
+        .cta-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-text {
+            max-width: 400px;
+            text-align: left;
+            margin-left: 30px;
+        }
+
+        .cta img {
+            max-width: 250px;
+            border-radius: 10px;
+        }
+
+        .cta h2 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .cta p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .btn-secondary {
+            background: #9c794b;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #816c56;
+        }
+
+    </style>
+</head>
+<body>
+
+ 
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Pneumonia AI</div>
+        <ul class="nav-links">
+            <li><a href="https://www.cdc.gov/pneumococcal/about/index.html" target="_blank">About</a></li>
+
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content">
+                <h1><span class="italic">Welcome to Pneumonia Detection & Information Hub</span></h1>
+                <a href="upload" class="btn-primary">Get Started</a>
+                <p> AI-Powered Pneumonia Diagnosis</p>
+                <p> Upload a chest X-ray and let our intelligent AI model analyze and detect pneumonia instantly.</p>
+                <p>📖 Learn More</p>
+                <p> Understand symptoms, causes, and treatments for pneumonia from trusted medical sources.</p>
+            </div>
+        </header>
+
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <img src="https://imgs.search.brave.com/2HAblsxGtaKhgS5X-xlNnj9QuCJ5VdZHf2x_Hu8Yp9s/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2Nuc29mdC5jb20v/aW1hZ2VzLXN1Y2Nl/c3Mtc3RvcnkvaGll/LXN5c3RlbS1hbmQt/cGF0aWVudC1tb2Jp/bGUtYXBwLnBuZw" alt="Tablet Preview">
+            <div class="cta-text">
+                <h2>Worried about your health?</h2>
+                <p>Start chat with our bot to get more informations.</p>
+                <a href="bot" class="btn-secondary">Yes, Please!</a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
